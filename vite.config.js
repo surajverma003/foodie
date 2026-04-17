@@ -6,5 +6,6 @@ export default defineConfig({
     server: {
         strictPort: true,
         host: true,
+        base: '/foodie/',
     },
 })
