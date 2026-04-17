@@ -3,16 +3,17 @@ import Slider from "react-slick";
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 const Carasoul = () => {
-
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 2,
         slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
         responsive: [
             {
-                breakpoint: 600,
+                breakpoint: 768,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1
@@ -20,80 +21,87 @@ const Carasoul = () => {
             }
         ]
     };
-    
-
-    const btnClickAuto = () => {
-        const btn = document.querySelector('.slick-next');
-        setInterval(() => {
-            btn.click();
-        }, 5000);
-    }
-
-    useEffect(() => {
-        btnClickAuto();
-    }, [])
 
     return (
-        <section className='poppins py-10 px-5'>
-            <h1 className="dancing text-4xl sm:text-5xl text-center text-white">What Says Our Customers</h1>
-            <div className='max-w-screen-xl mx-auto slider-container mt-10 mb-20'>
-                <Slider {...settings}>
-                    {
-                        object.map((element, index) => {
-                            return (
-                                <div id='mycarasoul' className="" key={index} >
-                                    <div className="block mx-auto p-6 border rounded-lg shadow bg-gray-800 border-gray-700 hover:bg-gray-700">
-                                        <p className="font-normal text-sm sm:text-[18px] sm:leading-snug text-gray-400 mb-3">{element?.description}</p>
-                                        <h5 className="my-2 text-sm sm:text-xl tracking-tight text-gray-300">{element?.name}</h5>
-                                        <h5 className="mb-2 text-xs sm:text-sm tracking-tight text-gray-300">{element?.lastname}</h5>
+        <section className='poppins transition-colors duration-500 py-16 lg:py-24 px-5 '>
+            <div className="max-w-screen-xl mx-auto">
+                
+                {/* Section Header */}
+                <div className="text-center mb-12">
+                    <span className="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-widest uppercase rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">Testimonials</span>
+                    <h2 className="text-3xl sm:text-5xl dancing font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 bg-clip-text text-transparent">What Our Customers Say</h2>
+                    <p className="mt-3 text-gray-500 dark:text-zinc-400 max-w-md mx-auto">Don't just take our word for it</p>
+                </div>
+
+                {/* Slider */}
+                <div className='slider-container'>
+                    <Slider {...settings}>
+                        {testimonials.map((item, index) => (
+                            <div key={index} className="px-3 pb-8">
+                                <div className="relative bg-white dark:bg-zinc-900 rounded-3xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800 h-full">
+
+                                    {/* Stars */}
+                                    <div className="flex gap-1 mb-4 mt-2">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Icon key={i} icon="mdi:star" className="text-amber-400" width="18" height="18" />
+                                        ))}
                                     </div>
-                                    <div className="relative w-fit my-10">
-                                        <img className='w-28 border-[5px] border-yellow-500 rounded-full' src={element.image} alt="" />
-                                        <span className='absolute left-12 -top-4 text-yellow-500'><Icon icon="bxs:up-arrow" width="24" height="24"></Icon></span>
+
+                                    {/* Review Text */}
+                                    <p className="text-gray-600 dark:text-zinc-400 leading-relaxed mb-6">"{item.description}"</p>
+
+                                    {/* Author */}
+                                    <div className="flex items-center gap-4">
+                                        <div className="relative">
+                                            <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full blur-sm opacity-50"></div>
+                                            <img className='relative w-14 h-14 rounded-full border-2 border-white dark:border-zinc-800 object-cover' src={item.image} alt={item.name} />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-semibold text-gray-900 dark:text-white">{item.name}</h4>
+                                            <p className="text-sm text-gray-500 dark:text-zinc-400">{item.role}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            )
-                        })
-                    }
-                </Slider>
+                            </div>
+                        ))}
+                    </Slider>
+                </div>
             </div>
         </section>
     );
-}
+};
 
 export default Carasoul;
 
-
-const object = [
+const testimonials = [
     {
         name: "Moana Michell",
-        lastname: "magna kulpa",
+        role: "Food Blogger",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image : require("../Images/client/client1.jpg")
+        image: "../Images/client/client1.jpg"
     },
     {
         name: "Mike Hamell",
-        lastname: "magna aliqua",
+        role: "Regular Customer",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image : require("../Images/client/client2.jpg")
+        image: "../Images/client/client2.jpg"
     },
     {
-        name: "Mike Hamell",
-        lastname: "magna aliqua",
+        name: "Sarah Johnson",
+        role: "Food Critic",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image : require("../Images/client/client3.png")
+        image: "../Images/client/client3.png"
     },
     {
-        name: "Mike Hamell",
-        lastname: "magna aliqua",
+        name: "David Wilson",
+        role: "Loyal Customer",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image : require("../Images/client/client4.png")
+        image: "../Images/client/client4.png"
     },
     {
-        name: "Mike Hamell",
-        lastname: "magna aliqua",
+        name: "Emily Brown",
+        role: "Food Enthusiast",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image : require("../Images/client/client5.jpg")
+        image: "../Images/client/client5.jpg"
     }
-]
-
+];

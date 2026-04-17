@@ -12,7 +12,31 @@ const Header = () => {
     const { user, cart, Toaster, googleAuth, logout } = context;
 
     const [isOpen, setIsOpen] = useState(false);
-    const toggleList = () => { setIsOpen(!isOpen); };
+    const [scrolled, setScrolled] = useState(false);
+    const [darkMode, setDarkMode] = useState(() => {
+        const saved = localStorage.getItem('theme');
+        if (saved) return saved === 'dark';
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
+
+    const toggleList = () => setIsOpen(!isOpen);
+
+    // Handle scroll effect
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Handle dark mode
+    useEffect(() => {
+        localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+        if (darkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [darkMode]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -22,67 +46,114 @@ const Header = () => {
 
         if (isOpen) document.addEventListener("mousedown", clickOutsideNav);
         return () => document.removeEventListener("mousedown", clickOutsideNav);
-
     }, [isOpen, location.pathname, navigate]);
+
+    const navLinks = [
+        { path: '/', label: 'Home' },
+        { path: '/about', label: 'About' },
+        { path: '/menu', label: 'Menu' },
+    ];
+
+    const resourceLinks = [
+        { path: '/discover', label: 'Discover', icon: 'mdi:compass' },
+        { path: '/book-table', label: 'Book Table', icon: 'mdi:table-chair' },
+    ];
+
+    const cartCount = cart?.[user?.$id]?.length || 0;
 
     return (
         <>
             <Toaster position="bottom-right" />
-            <nav ref={listRef} className="poppins fixed bg-black/50 md:bg-transparent w-full z-50 top-0 start-0" style={{ backdropFilter: 'blur(5px)' }}>
+            <nav ref={listRef} className={`poppins fixed w-full z-50 top-0 start-0 transition-all duration-500 ${scrolled ? 'bg-white/80 dark:bg-zinc-900/80 shadow-lg shadow-black/5 dark:shadow-black/20' : 'bg-transparent'}`} style={{ backdropFilter: scrolled ? 'blur(20px)' : 'blur(5px)' }}>
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-3">
-                    <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img className="w-16" src={require("../Images/Logo.png")} alt="Logo" />
-                    </Link>
-                    <div className="flex gap-2 md:order-2">
-                        <div className="flex justify-center items-center gap-2 text-white">
-                            {
-                                user ?
-                                    <button type="button" onClick={logout} className="relative bg-white/10 active:bg-white/20 rounded-lg p-2 border border-white/20 transition-all">
-                                        <span className=""><Icon icon="solar:logout-outline" width="20" height="20"></Icon></span>
-                                    </button> :
-                                    <button type="button" onClick={googleAuth} className="relative bg-white/10 active:bg-white/20 rounded-lg p-2 border border-white/20 transition-all">
-                                        <span className=""><Icon icon="flat-color-icons:google" width="20" height="20"></Icon></span>
-                                    </button>
-                            }
 
-                            <button onClick={() => navigate("/cart")} type="button" className='order-2 relative bg-white/10 active:bg-white/20 rounded-lg p-[7px] border border-white/20 transition-all'>
-                                <span className=""><Icon icon="mdi:trolley-outline" width="22" height="22"></Icon></span>
-                                {user && <span className={`${cart?.[user?.$id]?.length < 1 ? "hidden" : "block"} absolute -top-2.5 -right-3 text-xs bg-red-600 rounded-full h-5 w-5 flex justify-center items-center`}>{cart?.[user?.$id]?.length || 0}</span>}
-                            </button>
-
-                            {/* setting button */}
-                            {/* <button type="button" className="relative bg-white/10 active:bg-white/20 rounded-lg p-2 border border-white/20 transition-all">
-                                <span className=""><Icon icon="uil:setting" width="20" height="20"></Icon></span>
-                            </button> */}
-
-                            <button onClick={toggleList} type="button" className="md:hidden relative bg-white/10 active:bg-white/20 rounded-lg p-2 border border-white/20 transition-all text-white" aria-controls="navbar-sticky" aria-expanded={isOpen}>
-                                <span className="sr-only">Open main menu</span>
-                                <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-                                </svg>
-                            </button>
+                    {/* Logo */}
+                    <Link to="/" className="flex items-center gap-3 group">
+                        <div className="relative">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full blur opacity-0 group-hover:opacity-50 transition-opacity"></div>
+                            <img className="relative w-12 h-12 object-contain" src="../Images/Logo.png" alt="Logo" />
                         </div>
+                        <span className="text-xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent hidden sm:block">Feane</span>
+                    </Link>
+
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-2 md:order-2">
+
+                        {/* Theme Toggle */}
+                        <button onClick={() => setDarkMode(!darkMode)} className="relative p-2.5 rounded-xl bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 border border-gray-200 dark:border-zinc-700 transition-all duration-300 hover:scale-105" >
+                            {darkMode ? (
+                                <Icon icon="line-md:sun-rising-loop" className="text-amber-400" width="20" height="20" />) : (
+                                <Icon icon="line-md:moon-rising-loop" className="text-zinc-700" width="20" height="20" />
+                            )}
+                        </button>
+
+                        {/* Cart Button */}
+                        <button onClick={() => navigate("/cart")} className="relative p-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg shadow-amber-500/30 transition-all duration-300 hover:scale-105" >
+                            <Icon icon="mdi:cart-outline" width="20" height="20" />
+                            {user && cartCount > 0 && (
+                                <span className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center text-xs font-bold bg-red-500 text-white rounded-full border-2 border-white dark:border-zinc-900">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </button>
+
+                        {/* Auth Button */}
+                        {user ? (
+                            <button onClick={logout} className="relative p-2.5 rounded-xl bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 border border-red-200 dark:border-red-800 transition-all duration-300 hover:scale-105 group">
+                                <Icon icon="solar:logout-outline" className="text-red-500" width="20" height="20" />
+                            </button>
+                        ) : (
+                            <button onClick={googleAuth} className="relative p-2.5 rounded-xl bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 border border-gray-200 dark:border-zinc-700 shadow-sm transition-all duration-300 hover:scale-105">
+                                <Icon icon="flat-color-icons:google" width="20" height="20" />
+                            </button>
+                        )}
+
+                        {/* Mobile Menu Button */}
+                        <button onClick={toggleList} className="md:hidden relative p-2.5 rounded-xl bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 border border-gray-200 dark:border-zinc-700 transition-all duration-300">
+                            <Icon icon={isOpen ? "mdi:close" : "mdi:menu"} className="text-gray-700 dark:text-white" width="20" height="20" />
+                        </button>
                     </div>
-                    {
-                        user && <div className={`${isOpen ? 'block' : 'hidden'} items-center justify-center gap-3 w-full md:flex md:w-auto md:order-1`} id="navbar-sticky">
-                            <ul className="flex flex-col p-4 md:p-0 mt-1 text-sm text-center font-semibold bg-transparent md:space-x-2 rtl:space-x-reverse md:flex-row md:mt-0 uppercase text-gray-400">
-                                <li><Link to="/" className={`block hover:bg-slate-400 sm:bg-transparent sm:hover:bg-transparent px-3 py-2 mt-2 lg:mt-0 rounded-md w-full hover:text-white ${location.pathname === '/' ? 'text-white bg-slate-400 sm:bg-transparent' : 'text-gray-300'}`}>Home</Link></li>
-                                <li><Link to="/about" className={`block hover:bg-slate-400 sm:bg-transparent sm:hover:bg-transparent px-3 py-2 mt-2 lg:mt-0 rounded-md w-full hover:text-white ${location.pathname === '/about' ? 'text-white bg-slate-400 sm:bg-transparent' : 'text-gray-300'}`}>About</Link></li>
-                                <li><Link to="/menu" className={`block hover:bg-slate-400 sm:bg-transparent sm:hover:bg-transparent px-3 py-2 mt-2 lg:mt-0 rounded-md w-full hover:text-white ${location.pathname === '/menu' ? 'text-white bg-slate-400 sm:bg-transparent' : 'text-gray-300'}`}>Menu</Link></li>
-                                <li className='group px-3 py-1.5 mt-2 lg:mt-0 focus:text-white rounded-md w-full relative block text-gray-300 hover:text-white'>
-                                    <span className='flex justify-center items-center'>Resources <Icon icon="iconamoon:arrow-down-2" width="24" height="24"></Icon></span>
-                                    <div className="hidden group-hover:flex justify-start text-start items-start gap-2 flex-col w-full sm:w-80 absolute right-0 top-[36px] sm:top-9 z-10 bg-black/50 p-4 rounded-lg border border-gray-600" style={{ backdropFilter: "blur(5px)" }}>
-                                        <Link to="/discover" className={`block text-gray-400 hover:text-white hover:bg-slate-400 px-3 py-2 mt-2 lg:mt-0 rounded-md w-full ${location.pathname === '/discover' ? 'text-white bg-slate-400' : 'text-gray-400'}`}>Discover</Link>
-                                        <Link to="/book-table" className={`block text-gray-400 hover:text-white hover:bg-slate-400 px-3 py-2 mt-2 lg:mt-0 rounded-md w-full ${location.pathname === '/book-table' ? 'text-white bg-slate-400' : 'text-gray-400'}`}>Book Table</Link>
+
+                    {/* Navigation Links */}
+                    {user && (
+                        <div className={`${isOpen ? 'block' : 'hidden'} md:flex items-center w-full md:w-auto md:order-1 mt-4 md:mt-0`}>
+                            <ul className="flex flex-col md:flex-row items-center gap-2 p-4 md:p-0 rounded-2xl bg-white/90 dark:bg-zinc-900/90 md:bg-transparent md:dark:bg-transparent border border-gray-200 dark:border-zinc-800 md:border-none">
+
+                                {navLinks.map((link) => (
+                                    <li key={link.path} className="w-full">
+                                        <Link to={link.path} onClick={() => setIsOpen(false)} className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${location.pathname === link.path ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800'}`}>
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+
+                                {/* Resources Dropdown */}
+                                <li className="relative group w-full">
+                                    <button className="flex justify-between items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-all duration-300 w-full">
+                                        Resources <Icon icon="mdi:chevron-down" className="group-hover:rotate-180 transition-transform duration-300" width="20" height="20" />
+                                    </button>
+
+                                    {/* Dropdown Menu */}
+                                    <div className="hidden group-hover:block absolute top-full left-0 mt-0 w-56 bg-white dark:bg-zinc-900 rounded-2xl shadow-xl border border-gray-100 dark:border-zinc-800 overflow-hidden">
+                                        <div className="p-2">
+                                            {resourceLinks.map((link) => (
+                                                <Link  key={link.path}  to={link.path}  onClick={() => setIsOpen(false)}  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${location.pathname === link.path ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-800'}`}>
+                                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${location.pathname === link.path ? 'bg-amber-100 dark:bg-amber-900/30' : 'bg-gray-100 dark:bg-zinc-800'}`}>
+                                                        <Icon icon={link.icon} className={location.pathname === link.path ? 'text-amber-500' : 'text-gray-500 dark:text-gray-400'} width="18" height="18" />
+                                                    </div>
+                                                    {link.label}
+                                                </Link>
+                                            ))}
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                    }
+                    )}
                 </div>
             </nav>
         </>
     );
-}
+};
 
 export default Header;

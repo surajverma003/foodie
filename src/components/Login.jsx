@@ -9,9 +9,10 @@ const Login = () => {
     const context = useContext(myContext);
     const { setUser, Toaster, googleAuth, githubAuth, successFunc, errorFunc, popup, setPopup } = context;
 
-    const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+    const [userInfo, setUserInfo] = useState({ email: "admin@gmail.com", password: "admin123" });
     const [togglePassword, setTogglePassword] = useState(false);
     const [forgotEmail, setForgotEmail] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const togglePass = () => setTogglePassword(!togglePassword);
 
@@ -22,6 +23,7 @@ const Login = () => {
     // Change Password
     const forgotPassword = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             const redirectUrl = "http://localhost:3000/foodie#/reset-password";
@@ -29,16 +31,20 @@ const Login = () => {
             if (response) {
                 successFunc("Email sent successfully.");
                 e.target.reset();
+                setPopup(false);
             }
         } catch (error) {
             console.error(error.message);
-             errorFunc(error.message.split(":")[1]?.trim() || error.message);
+            errorFunc(error.message.split(":")[1]?.trim() || error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
     // Login User
     const loginUser = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             await account.createEmailPasswordSession(userInfo.email, userInfo.password);
@@ -52,102 +58,180 @@ const Login = () => {
         } catch (error) {
             console.error(error.message);
             errorFunc(error.message.split(":")[1]?.trim() || error.message);
-            console.error("Registration error:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <>
             <Toaster position="top-right" />
-            <div className="poppins text-white flex h-screen w-screen">
-                <div className="p-10 sm:py-20 w-full md:w-[35rem] h-full overflow-y-auto chrome-scrollbar">
-                    <div className="">
-                        <img src={require("../Images/Logo.png")} alt="" className="w-28 mb-5" />
-                        <h1 className="text-3xl sm:text-4xl">Log in to your account</h1>
-                        <p className="sm:text-xl my-2">
-                            <span className="">Don't have an account? </span>
-                            <Link to="/signup" className="text-blue-400 hover:underline">Sign Up</Link>
-                        </p>
+            <div className="poppins min-h-screen flex bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950">
+
+                {/* Form */}
+                <div className="relative w-full flex items-center justify-center p-6 sm:p-10 overflow-y-auto">
+                    {/* Background Decorations */}
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                        <div className="absolute top-20 -left-20 w-72 h-72 bg-amber-500/10 rounded-full"></div>
+                        <div className="absolute top-40 left-1/2 w-96 h-96 bg-amber-500/10 rounded-full"></div>
                     </div>
 
-                    <form onSubmit={loginUser} className="space-y-4 md:space-y-6 text-white pt-3">
-                        <div className="grid grid-cols-2 md:grid-cols-1 gap-3 text-2xl font-medium text-white pb-2">
-                            <button onClick={googleAuth} type="button" className="group w-full bg-transparent hover:bg-white/10 active:bg-white/20 rounded-lg px-5 py-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:bg-orange-700 border border-white/20 flex justify-center items-center">
-                                <span className="md:group-hover:hidden "><Icon icon="flat-color-icons:google" width="24" height="24"></Icon></span>
-                                <span className="hidden md:group-hover:block"><Icon icon="logos:google" width="73.15" height="24"></Icon></span>
+                    <div className="relative w-full max-w-screen-md">
+
+                        {/* Logo & Header */}
+                        <div className="text-center mb-10">
+                            <Link to="/" className="inline-flex items-center gap-3 mb-8">
+                                <img src="../Images/Logo.png" alt="Logo" className="w-14 h-14 object-contain" />
+                                <span className="text-2xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">Feane</span>
+                            </Link>
+                            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">Welcome Back</h1>
+                            <p className="text-gray-500 dark:text-zinc-400">
+                                Don't have an account?{' '}
+                                <Link to="/signup" className="text-amber-500 hover:text-amber-600 font-medium hover:underline">Sign Up</Link>
+                            </p>
+                        </div>
+
+                        {/* Social Login Buttons */}
+                        <div className="grid grid-cols-2 gap-4 mb-8">
+                            <button onClick={googleAuth} type="button" className="group flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 hover:border-amber-300 dark:hover:border-amber-600 shadow-sm hover:shadow-lg transition-all duration-300" >
+                                <Icon icon="flat-color-icons:google" width="24" height="24" />
+                                <span className="font-medium text-gray-700 dark:text-zinc-300 hidden sm:inline">Google</span>
                             </button>
 
-                            <button onClick={githubAuth} type="button" className="group w-full bg-[#333333] hover:bg-[#242424] active:bg-[#1b1b1b] rounded-lg px-5 py-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#333333] disabled:active:bg-[#333333]">
-                                <i className="md:group-hover:hidden ri-github-fill"></i>
-                                <center className="hidden md:group-hover:block"><Icon icon="octicon:logo-github-16" width="65" height="32"></Icon></center>
+                            <button onClick={githubAuth} type="button" className="group flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-zinc-900 dark:bg-zinc-800 border-2 border-zinc-900 dark:border-zinc-700 hover:bg-zinc-800 dark:hover:bg-zinc-700 shadow-sm hover:shadow-lg transition-all duration-300" >
+                                <Icon icon="mdi:github" className="text-white" width="24" height="24" />
+                                <span className="font-medium text-white hidden sm:inline">GitHub</span>
                             </button>
                         </div>
 
-                        <div className="relative border border-slate-600">
-                            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-gray-300 bg-gray-900 px-2 inline-block whitespace-nowrap">
-                                or with email and password
-                            </span>
+                        {/* Divider */}
+                        <div className="relative flex items-center gap-4 mb-8">
+                            <div className="flex-1 h-px bg-gray-200 dark:bg-zinc-800"></div>
+                            <span className="text-sm text-gray-400 dark:text-zinc-500 font-medium">or continue with email</span>
+                            <div className="flex-1 h-px bg-gray-200 dark:bg-zinc-800"></div>
                         </div>
 
-                        <div>
-                            <input onChange={onchange} type="email" name="email" id="email" className="block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 dark focus:ring-blue-500 focus:border-blue-500 rounded-lg" placeholder="name@gmail.com" required />
-                        </div>
-                        <div className='relative'>
-                            <input onChange={onchange} type={togglePassword ? 'text' : 'password'} name="password" id="password" placeholder="••••••••" className="block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 rounded-lg" required />
-                            <i onClick={togglePass} className={`${togglePassword ? 'hidden' : 'block'} absolute text-neutral-400 hover:text-neutral-200 text-xl top-2 right-4 bi bi-eye-slash-fill transition-all`}></i>
-                            <i onClick={togglePass} className={`${togglePassword ? 'block' : 'hidden'} absolute text-neutral-400 hover:text-neutral-200 text-xl top-2 right-4 bi bi-eye-fill transition-all`}></i>
-                        </div>
-                        <button onClick={() => setPopup(!popup)} type="button" className="flex items-center justify-between gap-x-5 gap-y-2 flex-wrap">
-                            <span className="text-sm font-medium text-blue-400 hover:underline ">Forgot password?</span>
-                        </button>
-                        <button type="submit" className="w-fit focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-3 text-center bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-800 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-yellow-600">Sign in</button>
-                    </form>
-                </div>
-
-                <div className="hidden md:block w-full flex-1">
-                    <img src={require("../Images/login_desktop.png")} alt="login_desktop" className=" object-cover w-full h-full" />
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-
-            <div className={`${!popup ? "hidden" : "block"} absolute top-0 poppins text-white px-5 pb-5 sm:pt-5 md:py-20 h-full w-screen bg-slate-900 backdrop-blur-md`}>
-                <div className="max-w-screen-md mx-auto w-full h-full">
-                    <div className="relative flex-1 max-w-screen-xl mx-auto mt-5 sm:mt-0 border border-gray-700 rounded-xl">
-
-                        <button type="button" onClick={() => setPopup(!popup)} className="absolute right-4 top-4 bg-blue-600 p-1 rounded-md active:scale-110">
-                            <Icon icon="material-symbols:close" width="20" height="20"></Icon>
-                        </button>
-
-                        <div className="py-8 px-8 mx-auto max-w-screen-xl lg:py-16 lg:px-6 bg-gray-800">
-                            <div className="mx-auto max-w-screen-md sm:text-center">
-                                <h1 className="text-3xl sm:text-4xl mb-5">Reset Account Password</h1>
-                                <p className="mx-auto mb-8 max-w-2xl font-light md:mb-12 sm:text-xltext-gray-400 text-sm md:text-base">Enter your account email to receive a secure password reset link. This link will expire shortly for your security.</p>
-                                <form className="" onSubmit={forgotPassword}>
-                                    <div className="items-center mx-auto mb-3 space-y-4 max-w-screen-sm sm:flex sm:space-y-0">
-                                        <div className="relative w-full">
-                                            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-                                            </div>
-                                            <input onChange={(e) => setForgotEmail(e.target.value)} type="email" id="email" className="block p-3 pl-10 w-full text-sm rounded-lg border sm:rounded-none sm:rounded-l-lg bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-4 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your email" required />
-                                        </div>
-                                        <div>
-                                            <button type="submit" className="py-3 px-5 w-full text-sm font-medium rounded-lg border cursor-pointer bg-blue-700 border-blue-600 sm:rounded-none sm:rounded-r-lg focus:ring-4 hover:bg-blue-700 focus:ring-blue-800 text-nowrap">Send Email</button>
-                                        </div>
+                        {/* Login Form */}
+                        <form onSubmit={loginUser} className="space-y-5">
+                            {/* Email */}
+                            <div>
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Email Address</label>
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <Icon icon="mdi:email-outline" className="text-gray-400 dark:text-zinc-500" width="20" height="20" />
                                     </div>
-                                    <div className="mx-auto max-w-screen-sm text-sm text-left newsletter-form-footer text-gray-300">We care about the protection of your data. <Link to="/term-conditions" className="font-medium text-blue-500 hover:underline">Read our Privacy Policy</Link>.</div>
-                                </form>
+                                    <input onChange={onchange} type="email" name="email" id="email" className="w-full pl-12 pr-4 py-4 rounded-xl bg-gray-50 dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-500 focus:border-amber-500 dark:focus:border-amber-500 focus:outline-none transition-colors" placeholder="name@example.com" value={userInfo?.email} required />
+                                </div>
+                            </div>
+
+                            {/* Password */}
+                            <div>
+                                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Password</label>
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <Icon icon="mdi:lock-outline" className="text-gray-400 dark:text-zinc-500" width="20" height="20" />
+                                    </div>
+                                    <input onChange={onchange} type={togglePassword ? 'text' : 'password'} name="password" id="password" placeholder="••••••••" className="w-full pl-12 pr-12 py-4 rounded-xl bg-gray-50 dark:bg-zinc-900 border-2 border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-500 focus:border-amber-500 dark:focus:border-amber-500 focus:outline-none transition-colors" value={userInfo?.password} required />
+                                    <button type="button" onClick={togglePass} className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 dark:text-zinc-500 hover:text-gray-600 dark:hover:text-zinc-300 transition-colors" >
+                                        <Icon icon={togglePassword ? 'mdi:eye' : 'mdi:eye-off'} width="22" height="22" />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Forgot Password */}
+                            <div className="flex items-center justify-between">
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" className="w-4 h-4 rounded border-gray-300 dark:border-zinc-600 text-amber-500 focus:ring-amber-500" />
+                                    <span className="text-sm text-gray-600 dark:text-zinc-400">Remember me</span>
+                                </label>
+                                <button onClick={() => setPopup(!popup)} type="button" className="text-sm font-medium text-amber-500 hover:text-amber-600 hover:underline" >
+                                    Forgot password?
+                                </button>
+                            </div>
+
+                            {/* Submit Button */}
+                            <button type="submit" disabled={loading} className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2" >
+                                {loading ? (
+                                    <Icon icon="svg-spinners:ring-resize" width="24" height="24" />) : (
+                                    <><Icon icon="mdi:login" width="22" height="22" /> Sign In</>
+                                )}
+                            </button>
+                        </form>
+
+                        {/* Security Note */}
+                        <div className="mt-8 flex items-center justify-center gap-4 text-xs text-gray-400 dark:text-zinc-500">
+                            <div className="flex items-center gap-1">
+                                <Icon icon="mdi:shield-check" className="text-green-500" width="16" height="16" /> Secure Login
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <Icon icon="mdi:lock" width="16" height="16" /> SSL Encrypted
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Forgot Password Modal */}
+            {popup && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 backdrop-blur-sm">
+                    <div className="relative w-full max-w-lg bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl overflow-hidden">
+
+                        {/* Decoration */}
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+
+                        {/* Close Button */}
+                        <button type="button" onClick={() => setPopup(false)} className="absolute right-4 top-4 p-2 rounded-xl bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors z-10" >
+                            <Icon icon="mdi:close" width="20" height="20" />
+                        </button>
+
+                        <div className="relative p-8 sm:p-10">
+                            {/* Header */}
+                            <div className="text-center mb-8">
+                                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/30">
+                                    <Icon icon="mdi:lock-reset" className="text-white" width="32" height="32" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Reset Password</h2>
+                                <p className="text-gray-500 dark:text-zinc-400 text-sm">Enter your email address and we'll send you a secure link to reset your password.</p>
+                            </div>
+
+                            {/* Form */}
+                            <form onSubmit={forgotPassword} className="space-y-5">
+                                <div>
+                                    <label htmlFor="reset-email" className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Email Address</label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <Icon icon="mdi:email-outline" className="text-gray-400 dark:text-zinc-500" width="20" height="20" />
+                                        </div>
+                                        <input onChange={(e) => setForgotEmail(e.target.value)} type="email" id="reset-email" className="w-full pl-12 pr-4 py-4 rounded-xl bg-gray-50 dark:bg-zinc-800 border-2 border-gray-200 dark:border-zinc-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-500 focus:border-amber-500 dark:focus:border-amber-500 focus:outline-none transition-colors" placeholder="Enter your email" required />
+                                    </div>
+                                </div>
+
+                                <button type="submit" disabled={loading} className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold shadow-lg shadow-amber-500/30 hover:shadow-xl transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2" >
+                                    {loading ? (
+                                        <Icon icon="svg-spinners:ring-resize" width="24" height="24" />) : (
+                                        <><Icon icon="mdi:email-fast" width="22" height="22" /> Send Reset Link</>
+                                    )}
+                                </button>
+                            </form>
+
+                            {/* Footer */}
+                            <div className="mt-6 text-center">
+                                <button onClick={() => setPopup(false)} className="text-sm text-gray-500 dark:text-zinc-400 hover:text-amber-500 transition-colors" >
+                                    ← Back to Login
+                                </button>
+                            </div>
+
+                            {/* Privacy Note */}
+                            <p className="mt-6 text-xs text-center text-gray-400 dark:text-zinc-500">
+                                We care about your data.{' '}
+                                <Link to="/term-conditions" className="text-amber-500 hover:underline">
+                                    Read our Privacy Policy
+                                </Link>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 };
