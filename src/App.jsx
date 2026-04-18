@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import account from './appwrite/appWrieConfig';
+import myContext from './context/myContext';
 
 import Header from './components/Header';
 import Home from './components/Home';
@@ -17,7 +18,6 @@ import Login from './components/Login';
 import Footer from './components/Footer';
 
 import Signup from './components/Signup';
-import myContext from './context/myContext';
 import TermsAndCondition from './components/TermsAndCondition';
 import ResetPassword from './components/ResetPassword';
 import Error from './components/Error';
@@ -56,10 +56,12 @@ function App() {
         getUser();
         // eslint-disable-next-line
     }, []);
+    
+    const isAuthPage = location.pathname.includes("/login") || location.pathname.includes("/signup");
 
     return (
         <>
-            {location.pathname === "/login" || location.pathname === "/signup" ? "" : <Header />}
+            {isAuthPage ? "" : <Header />}
             <Routes>
                 {
                     user ? (

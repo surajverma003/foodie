@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './App';
 import ContextState from './context/ContextState';
-
 import { HashRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
