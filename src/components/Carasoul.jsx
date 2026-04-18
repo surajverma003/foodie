@@ -35,9 +35,9 @@ const Carasoul = () => {
 
                 {/* Slider */}
                 <div className='slider-container'>
-                    <Slider {...settings}>
+                    <Slider {...settings} className=''>
                         {testimonials.map((item, index) => (
-                            <div key={index} className="px-3 pb-8">
+                            <div key={index} className="px-3 pb-8 h-full">
                                 <div className="relative bg-white dark:bg-zinc-900 rounded-3xl p-8 shadow-lg border border-gray-100 dark:border-zinc-800 h-full">
 
                                     {/* Stars */}
@@ -77,31 +77,31 @@ const testimonials = [
     {
         name: "Moana Michell",
         role: "Food Blogger",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image: "../Images/client/client1.jpg"
+        description: "The Cheese Pizza was an absolute delight! Perfectly crispy base with a generous amount of mozzarella. Highly recommended for all cheese lovers.",
+        image: "/Images/client/client1.jpg"
     },
     {
         name: "Mike Hamell",
         role: "Regular Customer",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image: "../Images/client/client2.jpg"
+        description: "Always my go-to for late-night cravings. The food arrives hot, fresh, and exactly how I like it. Best delivery service in the area!",
+        image: "/Images/client/client2.jpg"
     },
     {
         name: "Sarah Johnson",
         role: "Food Critic",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image: "../Images/client/client3.png"
+        description: "I am impressed by the freshness of the ingredients. You can taste the quality in every bite of their signature burger. Truly a premium experience.",
+        image: "/Images/client/client3.png"
     },
     {
         name: "David Wilson",
         role: "Loyal Customer",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image: "../Images/client/client4.png"
+        description: "Great variety and even better prices. I've tried almost everything on the menu, and I’ve never been disappointed. Fantastic service every single time.",
+        image: "/Images/client/client4.png"
     },
     {
         name: "Emily Brown",
         role: "Food Enthusiast",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-        image: "../Images/client/client5.jpg"
+        description: "An amazing culinary journey! The flavors are authentic, and the packaging is eco-friendly. It’s hard to find such consistency in local food delivery.",
+        image: "/Images/client/client5.jpg"
     }
 ];

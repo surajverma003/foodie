@@ -49,9 +49,9 @@ const Footer = () => {
                         {/* Social Links */}
                         <div className="flex gap-2">
                             {socialLinks.map((social, index) => (
-                                <a key={index} href={social.href} className="w-10 h-10 rounded-xl bg-gray-200 dark:bg-zinc-800 hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-500 flex items-center justify-center text-gray-600 dark:text-zinc-400 hover:text-white transition-all duration-300 hover:scale-110" aria-label={social.label} >
+                                <Link key={index} to={social.href} className="w-10 h-10 rounded-xl bg-gray-200 dark:bg-zinc-800 hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-500 flex items-center justify-center text-gray-600 dark:text-zinc-400 hover:text-white transition-all duration-300 hover:scale-110" aria-label={social.label} >
                                     <Icon icon={social.icon} width="18" height="18" />
-                                </a>
+                                </Link>
                             ))}
                         </div>
                     </div>
@@ -75,28 +75,28 @@ const Footer = () => {
                         <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Contact Us</h4>
                         <ul className="space-y-4">
                             <li>
-                                <a href="#" className="flex items-start gap-3 text-gray-600 dark:text-zinc-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors">
-                                    <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+                                <Link to="https://maps.app.goo.gl/Sc54TWUm2qXxeY597" target='_blank' className="flex items-start gap-3 text-gray-600 dark:text-zinc-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors">
+                                    <p className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
                                         <Icon icon="mdi:map-marker" className="text-amber-500" width="20" height="20" />
-                                    </div>
-                                    <Link to="https://maps.app.goo.gl/Sc54TWUm2qXxeY597" target="_blank" className="pt-2">Near Chandni Chowk, New Delhi, India</Link>
-                                </a>
+                                    </p>
+                                    <span className="pt-2">Near Chandni Chowk, New Delhi, India</span>
+                                </Link>
                             </li>
                             <li>
-                                <a href="tel:+919876543210" className="flex items-center gap-3 text-gray-600 dark:text-zinc-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors">
-                                    <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+                                <Link to="tel:+919876543210" className="flex items-center gap-3 text-gray-600 dark:text-zinc-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors">
+                                    <p className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
                                         <Icon icon="mdi:phone" className="text-amber-500" width="20" height="20" />
-                                    </div>
+                                    </p>
                                     <span>+91 9876543210</span>
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="mailto:hello@feane.com" className="flex items-center gap-3 text-gray-600 dark:text-zinc-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors">
-                                    <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+                                <Link to="mailto:hello@feane.com" className="flex items-center gap-3 text-gray-600 dark:text-zinc-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors">
+                                    <p className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
                                         <Icon icon="mdi:email" className="text-amber-500" width="20" height="20" />
-                                    </div>
+                                    </p>
                                     <span>suraj03@help.com</span>
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>

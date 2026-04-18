@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import myContext from '../context/myContext';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { ID } from 'appwrite';
 const Signup = () => {
     const navigate = useNavigate();
     const context = useContext(myContext);
-    const { setUser, Toaster, successFunc, errorFunc, googleAuth, githubAuth } = context;
+    const { user, setUser, Toaster, successFunc, errorFunc, googleAuth, githubAuth } = context;
 
     const [togglePassword, setTogglePassword] = useState(false);
     const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -46,7 +46,16 @@ const Signup = () => {
 
     const togglePass = () => setTogglePassword(!togglePassword);
 
+    useEffect(() => {
+        if (user) {
+            setTimeout(() => {
+                navigate("/");
+            }, 1000);
+        }
+    }, [])
+
     return (
+        !user &&
         <>
             <Toaster position="top-right" />
             <div className="poppins min-h-screen flex bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950">

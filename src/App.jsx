@@ -56,7 +56,7 @@ function App() {
         getUser();
         // eslint-disable-next-line
     }, []);
-    
+
     const isAuthPage = location.pathname.includes("/login") || location.pathname.includes("/signup");
 
     return (
@@ -81,7 +81,7 @@ function App() {
                 <Route path='/signup' element={<Signup />} />
                 <Route path='*' element={<Error />} />
             </Routes>
-            {location.pathname === "/login" || location.pathname === "/signup" ? "" : <Footer />}
+            {isAuthPage ? "" : <Footer />}
         </>
     );
 }

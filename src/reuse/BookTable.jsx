@@ -92,8 +92,8 @@ const BookTable = () => {
                     </div>
 
                     {/* Map Card */}
-                    <div className="relative rounded-3xl overflow-hidden shadow-xl border border-gray-100 dark:border-zinc-800">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17980.51792217211!2d77.21099466402022!3d28.651410796562313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd1a88dcc559%3A0x24fa43c081dbe51!2sChandni%20Chowk%2C%20Delhi!5e1!3m2!1sen!2sin!4v1776448587597!5m2!1sen!2sin" width="600" height="450" style={{ border: "0" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                    <div className="relative rounded-3xl overflow-hidden border border-gray-100 dark:border-zinc-800">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17980.51792217211!2d77.21099466402022!3d28.651410796562313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd1a88dcc559%3A0x24fa43c081dbe51!2sChandni%20Chowk%2C%20Delhi!5e1!3m2!1sen!2sin!4v1776448587597!5m2!1sen!2sin" width="100%" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
 
                         {/* Location Badge */}
                         <div className="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-gray-100 dark:border-zinc-800">

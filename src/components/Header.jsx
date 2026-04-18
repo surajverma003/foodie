@@ -88,14 +88,17 @@ const Header = () => {
                         </button>
 
                         {/* Cart Button */}
-                        <button onClick={() => navigate("/cart")} className="relative p-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg shadow-amber-500/30 transition-all duration-300 hover:scale-105" >
-                            <Icon icon="mdi:cart-outline" width="20" height="20" />
-                            {user && cartCount > 0 && (
-                                <span className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center text-xs font-bold bg-red-500 text-white rounded-full border-2 border-white dark:border-zinc-900">
-                                    {cartCount}
-                                </span>
-                            )}
-                        </button>
+                        {
+                            user &&
+                            <button onClick={() => navigate("/cart")} className="relative p-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg shadow-amber-500/30 transition-all duration-300 hover:scale-105" >
+                                <Icon icon="mdi:cart-outline" width="20" height="20" />
+                                {user && cartCount > 0 && (
+                                    <span className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center text-xs font-bold bg-red-500 text-white rounded-full border-2 border-white dark:border-zinc-900">
+                                        {cartCount}
+                                    </span>
+                                )}
+                            </button>
+                        }
 
                         {/* Auth Button */}
                         {user ? (
@@ -137,7 +140,7 @@ const Header = () => {
                                     <div className="hidden group-hover:block absolute top-full left-0 mt-0 w-56 bg-white dark:bg-zinc-900 rounded-2xl shadow-xl border border-gray-100 dark:border-zinc-800 overflow-hidden">
                                         <div className="p-2">
                                             {resourceLinks.map((link) => (
-                                                <Link  key={link.path}  to={link.path}  onClick={() => setIsOpen(false)}  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${location.pathname === link.path ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-800'}`}>
+                                                <Link key={link.path} to={link.path} onClick={() => setIsOpen(false)} className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${location.pathname === link.path ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-800'}`}>
                                                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${location.pathname === link.path ? 'bg-amber-100 dark:bg-amber-900/30' : 'bg-gray-100 dark:bg-zinc-800'}`}>
                                                         <Icon icon={link.icon} className={location.pathname === link.path ? 'text-amber-500' : 'text-gray-500 dark:text-gray-400'} width="18" height="18" />
                                                     </div>

@@ -59,7 +59,6 @@ const Menu = () => {
                     <div className="absolute inset-0 overflow-hidden">
                         <div className="absolute top-20 left-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl"></div>
                         <div className="absolute bottom-20 right-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-amber-500/10 rounded-full"></div>
                     </div>
 
                     {/* Floating Icons */}
@@ -312,31 +311,31 @@ const Menu = () => {
 export default Menu;
 
 const menu = [
-    { heading: 'Cheese Pizza', para: 'Loaded with rich mozzarella and a crispy base, perfect for cheese lovers.', image: "../Images/menu/f1.png", price: '12' },
-    { heading: 'Veggie Burger', para: 'A healthy mix of fresh veggies and sauces packed in a soft bun.', image: "../Images/menu/f2.png", price: '8' },
-    { heading: 'Crown Crust Pizza', para: 'Special crown crust with cheesy bites on the edges, a royal treat.', image: "../Images/menu/f3.png", price: '14' },
-    { heading: 'Delicious Pasta', para: 'Creamy and flavorful pasta tossed with herbs and spices.', image: "../Images/menu/f4.png", price: '11' },
-    { heading: 'French Fries', para: 'Crispy golden fries, perfect companion for any meal.', image: "../Images/menu/f5.png", price: '5' },
-    { heading: 'Veg Pizza', para: 'Topped with fresh veggies, olives, and a layer of cheese.', image: "../Images/menu/f6.png", price: '10' },
-    { heading: 'Tasty Burger', para: 'Juicy patty with flavorful sauces, a delight in every bite.', image: "../Images/menu/f7.png", price: '9' },
-    { heading: 'Chicken Burger', para: 'Tender chicken patty grilled to perfection with spicy mayo.', image: "../Images/menu/f8.png", price: '13' },
-    { heading: 'Macaroni Pasta', para: 'Classic macaroni in creamy cheese sauce, a comforting meal.', image: "../Images/menu/f9.png", price: '10' },
-    { heading: 'Tomato Pizza', para: 'Zesty tomato sauce and herbs baked on a soft pizza base.', image: "../Images/menu/f10.png", price: '11' },
-    { heading: 'Chicken Pizza', para: 'Loaded with spicy chicken chunks and melting cheese.', image: "../Images/menu/f11.png", price: '15' },
-    { heading: 'Burger King', para: 'A king-sized burger with double patty and loaded toppings.', image: "../Images/menu/f12.png", price: '10' },
-    { heading: 'Tasty Beef Burger', para: 'Savory beef patty grilled and served with BBQ sauce.', image: "../Images/menu/f13.png", price: '16' },
-    { heading: 'Juicy Burger', para: 'Tender and juicy burger that satisfies your cravings.', image: "../Images/menu/f14.png", price: '12' },
-    { heading: 'Burger', para: 'Classic burger with fresh lettuce, tomato and sauce.', image: "../Images/menu/f15.png", price: '9' },
-    { heading: 'Veg Burger', para: 'Crispy veggie patty served with mayo and crunchy lettuce.', image: "../Images/menu/f16.png", price: '8' },
-    { heading: 'Cheese and Chicken Pizza', para: 'A cheesy explosion topped with spicy chicken chunks.', image: "../Images/menu/f17.png", price: '16' },
-    { heading: 'Steak Fries', para: 'Thick-cut fries with a crispy outer and soft inside.', image: "../Images/menu/f18.png", price: '7' },
-    { heading: 'Natural Cut Fries', para: 'Freshly sliced and fried to golden perfection.', image: "../Images/menu/f19.png", price: '6' },
-    { heading: 'Bacon Onion Pizza', para: 'Smoky bacon and caramelized onions on cheesy crust.', image: "../Images/menu/f20.png", price: '18' },
-    { heading: 'Delicious Fries', para: 'Simple yet tasty fries with seasoning and crunch.', image: "../Images/menu/f21.png", price: '6' },
-    { heading: 'Belgian Fries', para: 'Thick Belgian-style fries with a hint of spice.', image: "../Images/menu/f22.png", price: '7' },
-    { heading: 'Sweet Potato Fries', para: 'Sweet and crispy fries for a unique snack experience.', image: "../Images/menu/f23.png", price: '8' },
-    { heading: 'Waffle Fries', para: 'Waffle-cut potatoes deep fried till golden brown.', image: "../Images/menu/f24.png", price: '9' },
-    { heading: 'Shoestring Fries', para: 'Thin, crispy and full of flavor – the perfect munch.', image: "../Images/menu/f25.png", price: '6' },
-    { heading: 'Veggie Cheese Burger', para: 'Stuffed with veggies and cheese, full of flavor.', image: "../Images/menu/f26.png", price: '11' },
-    { heading: 'Fried Chicken Burger', para: 'Crispy fried chicken with lettuce and tangy sauce.', image: "../Images/menu/f27.webp", price: '17' },
+    { heading: 'Cheese Pizza', para: 'Loaded with rich mozzarella and a crispy base, perfect for cheese lovers.', image: "/Images/menu/f1.png", price: '12' },
+    { heading: 'Veggie Burger', para: 'A healthy mix of fresh veggies and sauces packed in a soft bun.', image: "/Images/menu/f2.png", price: '8' },
+    { heading: 'Crown Crust Pizza', para: 'Special crown crust with cheesy bites on the edges, a royal treat.', image: "/Images/menu/f3.png", price: '14' },
+    { heading: 'Delicious Pasta', para: 'Creamy and flavorful pasta tossed with herbs and spices.', image: "/Images/menu/f4.png", price: '11' },
+    { heading: 'French Fries', para: 'Crispy golden fries, perfect companion for any meal.', image: "/Images/menu/f5.png", price: '5' },
+    { heading: 'Veg Pizza', para: 'Topped with fresh veggies, olives, and a layer of cheese.', image: "/Images/menu/f6.png", price: '10' },
+    { heading: 'Tasty Burger', para: 'Juicy patty with flavorful sauces, a delight in every bite.', image: "/Images/menu/f7.png", price: '9' },
+    { heading: 'Chicken Burger', para: 'Tender chicken patty grilled to perfection with spicy mayo.', image: "/Images/menu/f8.png", price: '13' },
+    { heading: 'Macaroni Pasta', para: 'Classic macaroni in creamy cheese sauce, a comforting meal.', image: "/Images/menu/f9.png", price: '10' },
+    { heading: 'Tomato Pizza', para: 'Zesty tomato sauce and herbs baked on a soft pizza base.', image: "/Images/menu/f10.png", price: '11' },
+    { heading: 'Chicken Pizza', para: 'Loaded with spicy chicken chunks and melting cheese.', image: "/Images/menu/f11.png", price: '15' },
+    { heading: 'Burger King', para: 'A king-sized burger with double patty and loaded toppings.', image: "/Images/menu/f12.png", price: '10' },
+    { heading: 'Tasty Beef Burger', para: 'Savory beef patty grilled and served with BBQ sauce.', image: "/Images/menu/f13.png", price: '16' },
+    { heading: 'Juicy Burger', para: 'Tender and juicy burger that satisfies your cravings.', image: "/Images/menu/f14.png", price: '12' },
+    { heading: 'Burger', para: 'Classic burger with fresh lettuce, tomato and sauce.', image: "/Images/menu/f15.png", price: '9' },
+    { heading: 'Veg Burger', para: 'Crispy veggie patty served with mayo and crunchy lettuce.', image: "/Images/menu/f16.png", price: '8' },
+    { heading: 'Cheese and Chicken Pizza', para: 'A cheesy explosion topped with spicy chicken chunks.', image: "/Images/menu/f17.png", price: '16' },
+    { heading: 'Steak Fries', para: 'Thick-cut fries with a crispy outer and soft inside.', image: "/Images/menu/f18.png", price: '7' },
+    { heading: 'Natural Cut Fries', para: 'Freshly sliced and fried to golden perfection.', image: "/Images/menu/f19.png", price: '6' },
+    { heading: 'Bacon Onion Pizza', para: 'Smoky bacon and caramelized onions on cheesy crust.', image: "/Images/menu/f20.png", price: '18' },
+    { heading: 'Delicious Fries', para: 'Simple yet tasty fries with seasoning and crunch.', image: "/Images/menu/f21.png", price: '6' },
+    { heading: 'Belgian Fries', para: 'Thick Belgian-style fries with a hint of spice.', image: "/Images/menu/f22.png", price: '7' },
+    { heading: 'Sweet Potato Fries', para: 'Sweet and crispy fries for a unique snack experience.', image: "/Images/menu/f23.png", price: '8' },
+    { heading: 'Waffle Fries', para: 'Waffle-cut potatoes deep fried till golden brown.', image: "/Images/menu/f24.png", price: '9' },
+    { heading: 'Shoestring Fries', para: 'Thin, crispy and full of flavor – the perfect munch.', image: "/Images/menu/f25.png", price: '6' },
+    { heading: 'Veggie Cheese Burger', para: 'Stuffed with veggies and cheese, full of flavor.', image: "/Images/menu/f26.png", price: '11' },
+    { heading: 'Fried Chicken Burger', para: 'Crispy fried chicken with lettuce and tangy sauce.', image: "/Images/menu/f27.webp", price: '17' },
 ];

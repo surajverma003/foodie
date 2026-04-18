@@ -13,13 +13,6 @@ const About = () => {
         { icon: 'mdi:clock-fast', title: 'Quick Service', desc: 'Hot, fresh food delivered to your table or doorstep in no time.' },
     ];
 
-    const milestones = [
-        { year: '2010', title: 'The Beginning', desc: 'Started as a small family kitchen', icon: 'mdi:seed' },
-        { year: '2015', title: 'First Restaurant', desc: 'Opened our flagship location downtown', icon: 'mdi:store' },
-        { year: '2020', title: 'Going Digital', desc: 'Launched online ordering & delivery', icon: 'mdi:cellphone' },
-        { year: '2024', title: '12 Locations', desc: 'Expanded across the country', icon: 'mdi:map-marker-multiple' },
-    ];
-
     const stats = [
         { value: '50+', label: 'Menu Items', icon: 'mdi:food' },
         { value: '15K+', label: 'Happy Customers', icon: 'mdi:account-group' },
@@ -43,8 +36,6 @@ const About = () => {
                     <div className="absolute inset-0 overflow-hidden">
                         <div className="absolute top-20 left-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl"></div>
                         <div className="absolute bottom-20 right-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-amber-500/10 rounded-full"></div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] border border-amber-500/5 rounded-full"></div>
                     </div>
 
                     {/* Floating Icons */}

@@ -13,8 +13,6 @@ const Discover = () => {
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-20 left-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl"></div>
                     <div className="absolute bottom-20 right-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-amber-500/10 rounded-full"></div>
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-amber-500/5 rounded-full"></div>
                 </div>
 
                 {/* Floating Icons */}
@@ -303,13 +301,4 @@ const menuItems = [
     { name: 'Crumbled Sausage', description: 'Natural unpressed ham, fontina, provolone, aioli, fresh tomato.', price: '12.5', icon: 'mdi:sausage', popular: false },
     { name: 'Baked Meatballs', description: 'Handmade meatballs baked in savory marinara with melted cheese.', price: '32.5', icon: 'mdi:food-variant', popular: true },
     { name: 'Margherita Pizza', description: 'Classic Italian pizza with fresh mozzarella and basil leaves.', price: '24', icon: 'mdi:pizza', popular: false },
-];
-
-const testimonials = [
-    { description: 'The ambiance and food quality exceeded all my expectations. A truly authentic Italian experience!', name: 'Michael Gove' },
-    { description: 'Best pasta I have ever tasted outside of Italy. The staff was incredibly welcoming and attentive.', name: 'Imogen Poots' },
-    { description: 'Perfect place for a romantic dinner. The wine selection is outstanding and reasonably priced.', name: 'Jack Huston' },
-    { description: 'We celebrate every family occasion here. The food is consistently excellent every single time.', name: 'Emma Thompson' },
-    { description: 'The happy hour deals are unbeatable! Great wine and delicious appetizers at amazing prices.', name: 'Mark Strong' },
-    { description: 'From the moment we walked in, we felt like family. The tiramisu is absolutely divine!', name: 'Kate Winslet' },
 ];

@@ -39,9 +39,16 @@ const Cart = () => {
     };
 
     useEffect(() => { }, [totalPrice]);
+    useEffect(() => {
+        if (!user) {
+            setTimeout(() => {
+                navigate("/");
+            }, 1000);
+        }
+    }, []);
 
     return (
-        <div className="poppins transition-colors duration-500">
+        user && <div className="poppins transition-colors duration-500">
 
             {/* Hero Section */}
             <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-900 via-zinc-950 to-black pt-20">
