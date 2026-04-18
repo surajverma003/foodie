@@ -91,7 +91,7 @@ const Login = () => {
                         {/* Logo & Header */}
                         <div className="text-center mb-10">
                             <Link to="/" className="inline-flex items-center gap-3 mb-8">
-                                <img src="../Images/Logo.png" alt="Logo" className="w-14 h-14 object-contain" />
+                                <img src="./Images/Logo.png" alt="Logo" className="w-14 h-14 object-contain" />
                                 <span className="text-2xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">Feane</span>
                             </Link>
                             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">Welcome Back</h1>

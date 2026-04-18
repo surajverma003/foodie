@@ -40,7 +40,7 @@ const Footer = () => {
                     {/* Brand Section */}
                     <div className="lg:col-span-1">
                         <Link to="/" className="inline-flex items-center gap-3 mb-6">
-                            <img className="w-12 h-12 object-contain" src="../Images/Logo.png" alt="Logo" />
+                            <img className="w-12 h-12 object-contain" src="./Images/Logo.png" alt="Logo" />
                             <span className="text-2xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">Feane</span>
                         </Link>
                         <p className="text-gray-600 dark:text-zinc-400 leading-relaxed mb-6">

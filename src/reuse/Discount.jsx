@@ -54,11 +54,11 @@ const discount = [
     {
         "heading": "Tasty Thursdays",
         "discount": "20%",
-        "image": "../Images/o/o1.jpg"
+        "image": "./Images/o/o1.jpg"
     },
     {
         "heading": "Pizza Days",
         "discount": "15%",
-        "image": "../Images/o/o2.jpg"
+        "image": "./Images/o/o2.jpg"
     }
 ];
